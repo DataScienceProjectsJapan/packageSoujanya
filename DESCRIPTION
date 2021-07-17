@@ -2,11 +2,14 @@ Package: packageSoujanya
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Soujanya",
+           family = "Dash",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "soujda2000@gmail.com", "soujda18@apu.ac.jp",
            comment = c(ORCID = "YOUR-ORCID-ID"))
+    mentor(given = "William B.",
+           family = "Claster"
+           email = "wclaster@apu.ac.jp")
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
