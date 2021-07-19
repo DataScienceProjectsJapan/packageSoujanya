@@ -7,9 +7,6 @@ Authors@R:
            role = c("aut", "cre"),
            email = "soujda2000@gmail.com", "soujda18@apu.ac.jp",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-    mentor(given = "William B.",
-           family = "Claster"
-           email = "wclaster@apu.ac.jp")
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
