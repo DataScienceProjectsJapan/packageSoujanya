@@ -7,10 +7,10 @@ Authors@R:
            role = c("aut", "cre"),
            email = "soujda2000@gmail.com", "soujda18@apu.ac.jp",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-    person(given = "A",
-           family = "D",
+    person(given = "Professor William B",
+           family = "Claster",
            role = c("aut", "cre"),
-           email = "s@gmail.com", "souj@apu.ac.jp",
+           email = "william108@gmail.com", "wclaster@apu.ac.jp",
            comment = c(ORCID = "YOUR-ORCID-ID"))         
 Description: What the package does (one paragraph).
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
