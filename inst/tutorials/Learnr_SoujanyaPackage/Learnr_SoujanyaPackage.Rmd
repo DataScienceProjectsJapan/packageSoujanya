@@ -6,7 +6,11 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(gradethis)
+tutorial_options(exercise.checker = gradethis::grade_learnr)
 knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(nycflights13)
 ```
 
 ## Easy questions
@@ -21,7 +25,11 @@ After installing Tidyverse package, given the mpg dataset, plot a scatterplot be
 ```{r two-plus-two, exercise=TRUE}
 library(tidyverse)
 ```
-
+```{r two-plus-two-solution}
+?mpg 
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
 ### Exercise 2
 
 *Here's an exercise in which you are supposed to ammend the code so that it doesn't show error*
@@ -35,12 +43,31 @@ x <- ggplot(data = mpg)
 + geom_point(mapping = aes(x = displ, y = hwy, color = red)) 
 ```
 
+```{r add-function-hint}
+ # mark the position of '+'
+```
+
+```{r add-function-solution}
+library(tidyverse)
+x <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, alpha = class)) 
+```
+
 ### Exercise 3
 
 *Here's a simple exercise with an empty code chunk provided for entering the answer.*
 
 First Let's try making facets for our mpg data. Use facet_wrap on any one categorical variable & facet_grid on any two categorical variable. Can you see the difference?
 ```{r Facet, exercise=TRUE}
+```
+
+```{r Facet-solution}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+  
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(drv ~ cyl)
 ```
 
 ### Exercise 4
@@ -50,6 +77,18 @@ First Let's try making facets for our mpg data. Use facet_wrap on any one catego
 Let's label the facets we made by putting lab() function
 ```{r Labeling, exercise=TRUE}
 
+```
+```{r Labeling-hint}
+Use labs()
+```
+
+```{r Labeling-solution}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+labs(
+  title = "Facet wrap",
+)
 ```
 
 ### Exercise 5 
@@ -136,9 +175,11 @@ filter(flights, month == (3 |4 ))
 
 ```{r Correct_the_code-hint}
 # Use infix or match operator (%in% or month == 3| month == 4)
+# For this answer just use the other one
 ```
-
-
+```{r Correct_the_code-solution}
+filter(flights, month == 3| month == 4)
+```
 
 ## Intermediate level
 
@@ -157,6 +198,11 @@ x <- ggplot(data = mpg) +
 
 ```{r print-limit-hint}
 show.legend
+```
+```{r print-limit-solution}
+x <- ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class,), show.legends = FALSE)
+print(x)
 ```
 
 ### Exercise 2
@@ -202,6 +248,10 @@ ggplot(data = airquality,aes(y=Wind,x=Temp))+geom_point()
 ```{r airquality-hint}
 geom_point()+geom_smooth()
 ```
+```{r airquality-solution}
+airquality
+ggplot(data = airquality,aes(y=Wind,x=Temp))+geom_point()+geom_smooth()
+```
 
 ### Exercise 4
 
@@ -215,6 +265,11 @@ How many rows are there now?
 ```
 
 ```{r flights_e-hint}
+# arrange(), inside the braket there could be flights, year, month and day
+# filter(flights, month %in% c(11, 12) & carrier == "DL")
+nrow(filter(flights, month %in% c(11, 12) & carrier == "DL"))
+```
+```{r flights_e-solution}
 arrange(flights,year, month, day)
 filter(flights, month %in% c(11, 12) & carrier == "DL")
 nrow(filter(flights, month %in% c(11, 12) & carrier == "DL"))
@@ -233,6 +288,9 @@ flights
 ```{r delay-hint}
 flights$delay <- flights$arr_delay + flights$dep_delay
 ```
+```{r delay-solution}
+flights$delay <- flights$arr_delay + flights$dep_delay
+```
 
 ### Exercise 6
 
@@ -242,6 +300,9 @@ flights
 ```
 
 ```{r arrange-hint}
+arrange(flights, desc(delay))
+```
+```{r arrange-solution}
 arrange(flights, desc(delay))
 ```
 
@@ -258,6 +319,9 @@ Part2: Since we donot want some variables like arr_time, dep_time etc., let's dr
 ```{r flights-hint}
 library(tidyverse)
 library(nycflights13)
+# select() everything except arr_delay,dep_delay by putting a - before the vector
+```
+```{r flights-solution}
 flights$delay <- flights$arr_delay + flights$dep_delay
 select(flights, -c(arr_delay,dep_delay))
 ```
@@ -275,8 +339,12 @@ library(nycflights13)
 flights
 ```
 
-```{r ranking-hint}
-filtered_data <- filter(flights, month %in% c(11, 12) & carrier == "DL")
+```{r ranking-hint1}
+# First filter DL flights in only the last month using filter(). Don't forget to use infix %in%
+# Save it to filtered_data
+# Then use transmute() where hour = air_time %/% 60 and minute is air_time - hour*60
+```
+```{r ranking-hint1}
 transmute(flights,
   air_time,
   hour = air_time %/% 60,
@@ -284,6 +352,14 @@ transmute(flights,
 )
 ```
 
+```{r ranking-solution}
+filtered_data <- filter(flights, month %in% c(11, 12) & carrier == "DL")
+transmute(flights,
+  air_time,
+  hour = air_time %/% 60,
+  minute = air_time - hour*60
+)
+```
 ### Exercise 9
 
 Find the mean delay of flights given that arr_delay > 30 minutes and find the carrier with the highest delay.
@@ -293,6 +369,13 @@ Find the mean delay of flights given that arr_delay > 30 minutes and find the ca
 ```
 
 ```{r print-limit_s-hint}
+flights %>%
+	filter(arr_delay > 30) %>%
+	group_by(carrier) %>%
+	summarise(mean_delay = mean(arr_delay)) %>%
+  arrange(desc(mean_delay))
+```
+```{r print-limit-solution}
 flights %>%
 	filter(arr_delay > 30) %>%
 	group_by(carrier) %>%
@@ -309,14 +392,24 @@ Let's do some visualization with the basic knowledge. Questions will be in steps
 Step 1: Find the number of rows and columns of the dataset.
 
 Step 2: Find the table of manufacturers.
-**Hint**:*Use table()
-and then index the attribute you want to show ($)*
 
 Step 3: Make a bar chart to represent the number of manufacturers.
-**Hint**: *geom can take point, smooth, bar etc.*
 
 ```{r Step1, exercise=TRUE, exercise.eval=TRUE}
 ```
+```{r Step1-hint1}
+# Use table() and then index the attribute you want to show ($)
+```
+```{r Step1-hint2}
+# geom can take point, smooth, bar etc.
+```
+```{r Step1-solution}
+nrows(mpg)
+ncols(mpg)
+table(mpg$manufacturer)
+qplot(manufacturer, data=mpg, geom="bar", fill=manufacturer) 
+```
+
 ### Exercise 2
 
 *Let's discover multiplot Can we draw it using R?*
@@ -335,10 +428,19 @@ library(tidyverse)
 iris
 ggplot(data = iris,aes(x=Sepal.Length))+geom_histogram(binwidth = 0.1) + facet_wrap(~Species)
 ```
+
 ### Exercise 3
 Missing data in the flights dataset would suggest the flight being cancelled so we would prefer to remove those. Remove all the rows if there is NA in arr_delay and dep_delay.
 
 ```{r Remove_missing, exercise=TRUE, exercise.eval=TRUE}
+```
+
+```{r Remove_missing-hint}
+# is.na shows missing whereas !is.na shows not missing
+```
+
+```{r Remove_missing-solution}
+flights %>% filter(!is.na(arr_delay) & !is.na(dep_delay))
 ```
 
 ### Exercise 4
@@ -362,6 +464,11 @@ Let's remove all the time variables. Can we use any_of to do the same?
 ```{r Remove-hint}
 select(flights, -contains("time"))
 ```
+
+```{r Remove-solution}
+flights
+select(flights, -contains("time"))
+``
 
 
 ## Aditional Challenge
@@ -395,5 +502,8 @@ flights
 ```
 
 ```{r summary_stats-hint, exercise=TRUE, exercise.eval=TRUE}
+flights %>% group_by(carrier) %>% summarise(mean_ardelay = mean(arr_delay,na.rm = TRUE)) %>% ggplot(aes(x=carrier, y = mean_ardelay, fill = carrier)) + geom_bar(stat = "identity") + theme_classic()
+```
+```{r summary_stats-solution}
 flights %>% group_by(carrier) %>% summarise(mean_ardelay = mean(arr_delay,na.rm = TRUE)) %>% ggplot(aes(x=carrier, y = mean_ardelay, fill = carrier)) + geom_bar(stat = "identity") + theme_classic()
 ```
