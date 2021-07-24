@@ -344,7 +344,7 @@ flights
 # Save it to filtered_data
 # Then use transmute() where hour = air_time %/% 60 and minute is air_time - hour*60
 ```
-```{r ranking-hint1}
+```{r ranking-hint2}
 transmute(flights,
   air_time,
   hour = air_time %/% 60,
