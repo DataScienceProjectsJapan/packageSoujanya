@@ -375,7 +375,7 @@ flights %>%
 	summarise(mean_delay = mean(arr_delay)) %>%
   arrange(desc(mean_delay))
 ```
-```{r print-limit-solution}
+```{r print-limit_s-solution}
 flights %>%
 	filter(arr_delay > 30) %>%
 	group_by(carrier) %>%
