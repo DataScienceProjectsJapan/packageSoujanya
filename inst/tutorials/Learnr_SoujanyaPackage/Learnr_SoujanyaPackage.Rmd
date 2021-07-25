@@ -399,6 +399,7 @@ Step 2: Find the table of manufacturers.
 Step 3: Make a bar chart to represent the number of manufacturers.
 
 ```{r Step1, exercise=TRUE, exercise.eval=TRUE}
+
 ```
 ```{r Step1-hint1}
 # Use table() and then index the attribute you want to show ($)
@@ -436,6 +437,7 @@ ggplot(data = iris,aes(x=Sepal.Length))+geom_histogram(binwidth = 0.1) + facet_w
 Missing data in the flights dataset would suggest the flight being cancelled so we would prefer to remove those. Remove all the rows if there is NA in arr_delay and dep_delay.
 
 ```{r Remove_missing, exercise=TRUE, exercise.eval=TRUE}
+
 ```
 
 ```{r Remove_missing-hint}
@@ -462,6 +464,7 @@ flights
 Let's remove all the time variables. Can we use any_of to do the same?
 
 ```{r Remove, exercise=TRUE, exercise.eval=TRUE}
+
 ```
 
 ```{r Remove-hint}
