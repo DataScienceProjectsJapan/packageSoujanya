@@ -58,6 +58,7 @@ x <- ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, alpha = c
 
 First Let's try making facets for our mpg data. Use facet_wrap on any one categorical variable & facet_grid on any two categorical variable. Can you see the difference?
 ```{r Facet, exercise=TRUE}
+
 ```
 
 ```{r Facet-solution}
